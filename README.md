@@ -26,7 +26,9 @@ MongoDB - http://www.mongodb.org/
 Project - https://github.com/IanShoe/IDKWebAppSeed
 
 `git clone https://github.com/IanShoe/IDKWebAppSeed.git`
+
 `cd IDKWebAppSeed`
+
 `npm install`  -Note: I currently have all the packages stored in the repo so this is unnecesary. I will remove them from repo in the future
 
 In a seperate terminal window start mongo with `mongod`

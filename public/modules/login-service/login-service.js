@@ -8,8 +8,6 @@ function loginCtrl ($scope, $attrs, loginService) {
     $scope.signUp.form = {};
     //Temporary
     $scope.formLogin = {};
-    $scope.formLogin.email = 'shoemaki@ctc.com';
-    $scope.formLogin.password = 'asdf';
 
     $scope.forgetForm = {};
     $scope.forgetForm.show = false;
