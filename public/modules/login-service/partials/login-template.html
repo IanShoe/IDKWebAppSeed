@@ -1,0 +1,80 @@
+<div ng-switch="loggedIn" ng-controller="loginCtrl">
+	<span ng-switch-when="true">
+		<div class="pull-right">
+			<ul class="nav pull-right">
+				<div class="pull-right">
+					<ul class="nav pull-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome {{user.name}} <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a class="fade-reflect" href="preferences"><i class="icon-cog"></i> Preferences</a></li>
+								<li><a class="fade-reflect" href="support"><i class="icon-envelope"></i> Contact Support</a></li>
+								<li class="divider"></li>
+								<li><a class="fade-reflect" ng-click="submitLogout()"><i class="icon-off"></i> Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</ul>
+		</div>
+	</span>
+	<span ng-switch-when="false">
+		<div class="pull-right">
+			<ul class="nav pull-right">
+				<li><a ng-click="signupModal.show = true">Sign Up</a></li>
+				<li class="divider-vertical"></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Log In <b class="caret"></b></a>
+					<div class="dropdown-menu" style="padding: 15px; padding=bottom: 0px;">
+						<form class="validator" name="loginForm" novalidate>
+							<input type="text" required placeholder="Email" ng-model="formLogin.email"></input>
+							<input type="password" required placeholder="Password" ng-model="formLogin.password"></input>
+							<label class="checkbox">
+								<input type="checkbox" ng-model="formLogin.rmbr" value="rmbr">Remember Me</input>
+							</label>
+							<button class="btn btn-primary" ng-disabled="loginForm.$invalid" ng-click="submitLogin()"> Log In</button>
+							<button ng-click="forgetForm.show = !forgetForm.show" class="btn btn-danger">Forgot</button>
+							<span ng-show="forgetForm.show">
+								<li class="divider"></li>
+								<!-- Enter Key sorta broken for now -->
+								<input type="email" ng-model="forgetForm.email" placeholder="E-mail" ui-keypress="{13:'resetPass()'}"></input>
+								<button class="btn btn-primary" ng-click="resetPass()">Reset</button>
+							</span>
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="fade ng-valid modal hide ng-dirty" ui-modal ng-model="signupModal.show">
+			<div class="modal-header"><h1>Sign Up</h1></div>
+			<div class="modal-body">
+				<form class="validator" name="signupForm" ng-model="signUp.form" novalidate>
+					<div class="row-fluid">
+						<div class="span6">
+							<h5>Name</h5>
+							<input class="span" ng-model="signUp.form.name" required type="text" placeholder="Name"/>
+							<h5>E-Mail</h5>
+							<input class="span" ng-model="signUp.form.email" required type="email" placeholder="E-mail"/>
+							<h5>Password</h5>
+							<input class="span" ng-model="signUp.form.password" required type="password"/>
+							<h5>Confirm Password</h5>
+							<input passidate="signUp.form.password" class="span" ng-model="signUp.form.passwordConfirm" required type="password"/>
+						</div>
+						<div class="span6">
+							<h5>State</h5>
+							<input class="span" ng-model="signUp.form.state" required type="text" placeholder="State"/>
+							<h5>Zip</h5>
+							<input class="span" ng-model="signUp.form.zip" required type="text" placeholder="Zip"/>
+							<h5>City</h5>
+							<input class="span" ng-model="signUp.form.city" required type="text" placeholder="City"/>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a class="btn pull-left" ng-click="resetSignUp()">Reset Fields</a>
+				<a class="btn btn-success" ng-disabled="signupForm.$invalid" ng-click="submitSignUp()">Submit</a>
+				<a class="btn btn-danger" ng-click="cancelSignUp()">Cancel</a>
+			</div>
+		</div>
+	</span>
+</div>
