@@ -5,7 +5,7 @@
 This is a web seed project using Node.js + Express and MongoDB on the backend and Twitter Bootstrap + AngularJS on the frontend. It comes bundeled with some awesome angular modules developed by the Angular UI team as well as some homegrown login and messaging modules. The seed demonstrates the use of both the login and messaging modules as well as some general layout strategies. The seed also has the beginnings of a user system that features an approval strategy on both regular user accounts and admin accounts which is persisted by mongoDB.
 
 
-##Mac Instalation
+##Mac Installation
 
 Open up a terminal window and navigate to your desired directory for the project
 
