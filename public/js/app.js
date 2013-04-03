@@ -39,7 +39,7 @@ directive('appVersion', ['version', function(version) {
 }]);
 
 /* Service */ 
-seed.value('version', 'Alpha Version 0.1');
+seed.value('version', 'Alpha Version 0.8');
 
 /* Providers */
 seed.

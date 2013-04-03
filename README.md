@@ -33,4 +33,5 @@ Project - https://github.com/IanShoe/IDKWebAppSeed
 
 In a seperate terminal window start mongo with `mongod`
 
-In your first terminal window `node seed.js`
+In your first terminal window initilize settings with the command `node initilize.js`
+Then you can start your server with `node seed.js`

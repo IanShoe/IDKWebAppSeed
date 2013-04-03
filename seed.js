@@ -74,7 +74,6 @@ app.post('/resetPass', function(req, res){
 		else{
 			res.send(200, { error: 'User Not Found' });
 		}
-		
 	});
 });
 

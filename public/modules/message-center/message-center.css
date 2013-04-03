@@ -1,34 +1,141 @@
-message-center {
-  position:fixed;
-  bottom:20px;
-  left:20px;
-}
-
 div.messageBox {
-  border :2px solid #a1a1a1;
-  color: #008dd6;
-  padding: 3px;
-  padding-left: 5px;
-  margin-top: 5px;
-  background: #161616;
-  border-radius: 7px;
-  width: 230px;
-  max-height: 50px;
+	border :2px solid #a1a1a1;
+	border-radius: 7px;
+	color: #008dd6;
+	background: #161616;
+	-webkit-animation: messageAnimation 3s ease;
+	-moz-animation: messageAnimation 3s ease;
+	-o-animation: messageAnimation 3s ease;
 }
 
 img.messageImg {
-	height: 35px;
-	width: 35px;
-  	margin-right: 5px;
-  	border-radius: 15px;
-  	display: inline;
-}
-
-h6.messageItem {
-	font-size: 16px;
+	border-radius: 15px;
 	display: inline;
 }
 
+h6.messageItem {
+	display: inline;
+}
 
+/*Desktop*/
+@media (min-width: 980px){
 
-/*Currently setup for maximum of 20characters. Anything over will break the box*/
+	message-center {
+		position:absolute;
+		top: 40px;
+		width: 30%;
+		padding: 3px;
+		left: 40%;
+		min-width: 200px;
+		z-index: 1050;
+	}
+
+	div.messageBox {
+		padding: 3px;
+		padding-left: 5px;
+		max-height: 60px;
+		max-width: 250px;
+		margin-top: 5px;
+	}
+
+	img.messageImg {
+		height: 35px;
+		width: 35px;
+		margin-right: 5px;
+	}
+
+	h6.messageItem {
+		font-size: 16px;
+	}
+}
+
+/*Tablet*/
+@media (min-width: 768px) and (max-width: 979px) {
+
+	message-center {
+		position:absolute;
+		top: 40px;
+		width: 30%;
+		padding: 3px;
+		left: 35%;
+		min-width: 200px;
+		z-index: 1050;
+	}
+
+	div.messageBox {
+		padding: 3px;
+		padding-left: 3px;
+		max-height: 55px;
+		max-width: 230px;
+		margin-top: 3px;
+	}
+
+	img.messageImg {
+		height: 30px;
+		width: 30px;
+		margin-right: 3px;
+	}
+
+	h6.messageItem {
+		font-size: 14px;
+	}
+}
+
+/*Phone*/
+@media(max-width: 767px) {
+
+	message-center {
+		position:fixed;
+		bottom: 5px;
+		left: 5px;
+		width: 20%;
+		padding: 2px;
+		min-width: 170px;
+		z-index: 1050;
+	}
+
+	div.messageBox {
+		padding: 2px;
+		padding-left: 2px;
+		max-height: 50px;
+		max-width: 200px;
+		margin-top: 2px;
+	}
+
+	img.messageImg {
+		height: 25px;
+		width: 25px;
+		margin-right: 3px;
+	}
+
+	h6.messageItem {
+		font-size: 12px;
+	}
+}
+
+/*.9 because of a werid text highlight piece*/
+@keyframes messageAnimation {
+	0% {opacity: 0;}
+	10% {opacity: 1;}
+	80% {opacity: .9;}
+	100% {opacity: 0;}
+}
+
+@-webkit-keyframes messageAnimation {
+	0% {opacity: 0;}
+	10% {opacity: 1;}
+	80% {opacity: .9;}
+	100% {opacity: 0;}
+}
+@-moz-keyframes messageAnimation {
+	0% {opacity: 0;}
+	10% {opacity: 1;}
+	80% {opacity: .9;}
+	100% {opacity: 0;}
+}
+@-o-keyframes messageAnimation {
+	0% {opacity: 0;}
+	10% {opacity: 1;}
+	80% {opacity: .9;}
+	100% {opacity: 0;}
+}

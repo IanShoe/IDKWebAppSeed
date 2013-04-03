@@ -46,8 +46,9 @@ directive('message', function (messageService) {
                 scope.$apply();
             };
             setTimeout(function(){
-                element.fadeOut(1250, doneFading);
-            }, 5000)
+                messageService.removeItem(scope.messageItem);
+                scope.$apply();
+            }, 2700)
         }
     };
 });

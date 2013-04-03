@@ -1,16 +1,11 @@
-function loginCtrl ($scope, $attrs, loginService) {
-
-    //set $scope.loggedIn variable to either a cookie or a request
+function loginCtrl ($scope, $attrs) {
+    //set $scope.loggedIn variable to either a cookie or a request?
     $scope.loggedIn = false;
-    $scope.signupModal = {};
-    $scope.signupModal.show = false;
     $scope.signUp = {}
     $scope.signUp.form = {};
-    //Temporary
     $scope.formLogin = {};
 
     $scope.forgetForm = {};
-    $scope.forgetForm.show = false;
     $scope.forgetForm.email = '';
 
     $scope.submitLogin = function(){
@@ -29,7 +24,6 @@ function loginCtrl ($scope, $attrs, loginService) {
         $scope.logout().then(function(val){
             if(val){
                 $scope.loggedIn = false;
-                $scope.formLogin = {};
             }
             else{
                 $scope.loggedIn = true;
@@ -41,51 +35,39 @@ function loginCtrl ($scope, $attrs, loginService) {
     $scope.resetSignUp = function(){
         $scope.signUp.form = {};
         $scope.signUp.form.email = '';
-        $scope.signUp.form.$pristine = true;
-        $scope.signUp.form.$dirty = false;
-        $scope.signUp.form.$invalid = true;
+        // where's mah scope at?
+        // debugger;
+        // $scope.signupForm.$setPristine();
+    }
+
+    // Had to do some stupid jquery look ups to toggle dropdown for now
+
+    $scope.cancelSignUp = function(){
+        $scope.resetSignUp();
+        $(".dropdown").removeClass('open');
     }
 
     $scope.submitSignUp = function(){
         $scope.signup({form: $scope.signUp.form}).then(function(val){
             if(val){
                 $scope.resetSignUp();
-                $scope.signupModal.show = false;
+                $(".dropdown").removeClass('open');
             }
         });
-    }
-
-    $scope.cancelSignUp = function(){
-        $scope.resetSignUp();
-        $scope.signupModal.show = false;
     }
 
     $scope.resetPass = function(){
         $scope.forget({email: $scope.forgetForm.email}).then(function(val){
             if(val){
-                console.log($scope.forgetForm);
                 $scope.forgetForm.email = '';
-                $scope.forgetForm.show = false;
+                $scope.forgetForm = {};
+                $(".dropdown").removeClass('open');
             }
         });
     }
 }
-
 angular.module('loginModule', []).
-factory('loginService', function ($rootScope) {
-    // Example
-    // var loginService = {};
-
-    // loginService.login = function () {
-    //     $rootScope.$broadcast('login');
-    // };
-
-    // loginService.logout = function () {
-    //     $rootScope.$broadcast('logout');
-    // }
-    // return loginService;
-}).
-directive('loginCenter', function (loginService) {
+directive('loginCenter', function () {
     return {
         restrict: 'E',
         scope: {

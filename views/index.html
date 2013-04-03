@@ -4,23 +4,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
 	<title>IDK Web App Seed</title>
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap-2.2.2/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap-2.2.2/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap-2.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap-2.3.0/css/bootstrap-responsive.min.css">
 	<link rel="stylesheet" type="text/css" href="modules/message-center/message-center.css">
 	<link rel="stylesheet" type="text/css" href="modules/angular-ui/build/angular-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="css/seed.css">
-	<link rel="stylesheet" type="text/css" href="css/tablet.css" media='screen and (min-width: 769px) and (max-width: 979px)'>
-	<link rel="stylesheet" type="text/css" href="css/phone.css" media='screen and (max-width: 768px)'>
 
 	<script src="lib/jquery-1.9.1.js"></script>
 	<script src="lib/bootstrap-2.3.0/js/bootstrap.js"></script>
 	<script src="lib/angular-1.0.5/angular.js"></script>
 	<script src="lib/angular-1.0.5/angular-resource.js"></script>
-	<!-- min versions -->
-	<!-- <script src="lib/jquery-1.9.1.min.js"></script>
-	<script src="lib/bootstrap-2.3.0/js/bootstrap.min.js"></script>
-	<script src="lib/angular-1.0.5/angular.min.js"></script>
-	<script src="lib/angular-1.0.5/angular-resource.min.js"></script> -->
 	
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
@@ -45,7 +38,7 @@
 				<div class="nav-collapse collapse" >
 					<ul class="nav">
 						<li><a href="home"><i class="icon-home icon-white"></i> Home</a></li>
-						<li ng-show="loggedIn"><a href="{{navTemplate.href}}"><i class="icon-white" ng-class="navTemplate.icon"></i> {{navTemplate.title}}</a></li>
+						<li ng-repeat= "navTemplate in activeNavTemplates"><a href="{{navTemplate.href}}"><i class="icon-white" ng-class="navTemplate.icon"></i> {{navTemplate.title}}</a></li>
 					</ul>
 					<login-center login="login(form)" logout="logout()" signup="signup(form)" user="user" forget="forget(email)"></login-center>
 				</div>
@@ -53,5 +46,11 @@
 		</div>
 	</div>
 	<ng-view style="padding: 5px;"></ng-view>
+	<div class="footerPad"></div>
+	<footer class="hidden-phone">
+		<ul>
+			<li>Built with <a href="http://angularjs.org/"><img src="images/AngularJS-small.png"></a> and <a class="brand"href="http://twitter.github.com/bootstrap/index.html"><b>Twitter Bootstrap</b></a></li>&nbsp;&nbsp;
+		</ul>
+	</footer>
 </body>
 </html>

@@ -1,28 +1,24 @@
 'use strict';
 
-String.prototype.startsWith = function (str){
-	return this.indexOf(str) == 0;
-};
-
 var navTemplates = [
-{
+[{
 	title: 'Admin',
 	icon: 'icon-lock',
 	href: 'admin'
-},
-{
+}],
+[{
 	title: 'User',
 	icon: 'icon-file',
-	href: 'user'	
-}];
+	href: 'user'
+}]];
 
-function indexCtrl($rootScope, $scope, $location, $http, $q, Utils, User, messageService, loginService) {
+function indexCtrl($rootScope, $scope, $location, $http, $q, Utils, User, messageService) {
 
 	//Maybe temporary
 	//Pull from a cookie?
-	// if(!$scope.loggedIn){
-	// 	$location.path('/home');
-	// }
+	if(!$scope.loggedIn){
+		$location.path('/home');
+	}
 
 	$rootScope.user = new User();
 	$scope.login = function(form){
@@ -31,13 +27,13 @@ function indexCtrl($rootScope, $scope, $location, $http, $q, Utils, User, messag
 		success(function(response){
 			if(response){
 				$rootScope.user = response;
-				if($rootScope.user.admin){
-					$scope.navTemplate = navTemplates[0];
+				if($rootScope.user.role == 'Admin'){
+					$scope.activeNavTemplates = navTemplates[0];
 				}
-				else{
-					$scope.navTemplate = navTemplates[1];
+				else if($rootScope.user.role == 'User'){
+					$scope.activeNavTemplates = navTemplates[1];
 				}
-				$location.path('/' + $scope.navTemplate.href);
+				$location.path('/' + $scope.activeNavTemplates[0].href);
 				$scope.loggedIn = true;
 				messageService.prepForBroadcast('Successful Login');
 				deferred.resolve(true);
@@ -126,7 +122,7 @@ function homeCtrl($scope) {
 }
 
 function adminCtrl($scope, $http, Utils, messageService) {
-	
+
 	var userList = [];
 	$scope.retrieveUsers = function(){
 		var options = [];
@@ -135,17 +131,17 @@ function adminCtrl($scope, $http, Utils, messageService) {
 			$scope.users = data;
 			for(var i = 0; i < $scope.users.length; i++){
 				setApproval($scope.users[i]);
+				setRole($scope.users[i]);
 			}
 		});
 	}
-
 	$scope.retrieveUsers();
 
 	$scope.updateUsers = function(){
 		$http.post('/updateUsers', userList).
 		success(function(data) {
 			if(data){
-				messageService.prepForBroadcast('Update Successful');
+				console.log(data);
 			}
 			else{
 				messageService.prepForBroadcast('Update Failed');
@@ -154,6 +150,60 @@ function adminCtrl($scope, $http, Utils, messageService) {
 		error(function() {
 			messageService.prepForBroadcast('Update Failed');
 		});
+	}
+
+	// Helper method to maintain a lite user list 
+	var updateUserList = function(user){
+		var userLite = {}
+		userLite.name = user.name;
+		// userLite.email = user.email;
+		userLite.approval = user.approval;
+		userLite.role = user.role;
+		var found = Utils.find(user, userList, 'name');
+		if(found){
+			userList.splice(found.index, 1, userLite);
+		}
+		else{
+			userList.push(userLite);
+		}
+	}
+
+	$scope.userSort = 'name';
+	$scope.sortUser = function(type){
+		if(type == $scope.userSort){
+			$scope.userSort = '-'+type;
+		}
+		else{
+			$scope.userSort = type;
+		}
+	}
+
+	$scope.toggleRole = function(user){
+		if(user.role == 'User'){
+			user.role = 'Admin';
+		}
+		else if(user.role == 'Admin'){
+			user.role = 'User';
+		}
+		setRole(user);
+		updateUserList(user);
+		$scope.updateUsers();
+	}
+
+	$scope.toggleApproval = function(user){
+		user.approval = !user.approval;
+		setApproval(user);
+		updateUserList(user);
+		$scope.updateUsers();
+	}
+
+	var setRole = function(user){
+		if(user.role == 'User'){
+			user.roleStyle = 'user';
+		}
+		else if(user.role == 'Admin'){
+			user.roleStyle = 'admin';
+		}
 	}
 
 	var setApproval = function(user){
@@ -165,25 +215,6 @@ function adminCtrl($scope, $http, Utils, messageService) {
 			user.approvalStyle = 'Unapproved';
 			user.icon = 'icon-remove-sign';
 		}
-	}
-
-	var updateUserList = function(user){
-		var userLite = {}
-		userLite.name = user.name;
-		userLite.approval = user.approval;
-		var found = Utils.find(user, userList, 'name');
-		if(found){
-			userList.splice(found.index, 1, userLite);
-		}
-		else{
-			userList.push(userLite);
-		}
-	}
-
-	$scope.toggleApproval = function(user){
-		user.approval = !user.approval;
-		setApproval(user);
-		updateUserList(user);
 	}
 
 	var toggle = false;
@@ -209,14 +240,15 @@ function adminCtrl($scope, $http, Utils, messageService) {
 			updateUserList($scope.users[i]);
 		}
 		toggle = !toggle;
+		$scope.updateUsers();
 	}
 }
 
-function userCtrl($rootScope, $scope, $http, Utils, messageService) {
+function userCtrl($scope, $http, Utils, messageService) {
 }
 
-function preferencesCtrl($rootScope, $scope, $http, Utils, messageService) {
+function preferencesCtrl($scope, $http, Utils, messageService) {
 }
 
-function supportCtrl($rootScope, $scope, $http, Utils, messageService) {
+function supportCtrl($scope, $http, Utils, messageService) {
 }

@@ -14,23 +14,30 @@
 			</div>
 		</div>
 		<div class="span10">
-			<table id="usersTable" class="table table-bordered table-white">
+			<table id="usersTable" class="table table-bordered table-white table-animated">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Email</th>
+						<th ng-click="sortUser('name')" class="clickable">Name</th>
+						<th ng-click="sortUser('email')" class="clickable">Email</th>
+						<th ng-click="sortUser('city')" class="clickable">City</th>
+						<th ng-click="sortUser('state')" class="clickable">State</th>
+						<th ng-click="sortUser('zip')" class="clickable">Zip</th>
+						<th ng-click="sortUser('role')" class="clickable">Role</th>
 						<th class="clickable" ng-click="toggleAll()" width="150px"><i ng-class="approval.icon"></i>  Approval</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="user in users">
+					<tr ng-repeat="user in users | orderBy:userSort">
 						<td>{{user.name}}</td>
 						<td>{{user.email}}</td>
+						<td>{{user.city}}</td>
+						<td>{{user.state}}</td>
+						<td>{{user.zip}}</td>
+						<td class="clickable" ng-class="user.roleStyle" ng-click="toggleRole(user)" width="150px"> {{user.role}}</td>
 						<td class="clickable" ng-class="user.approvalStyle" ng-click="toggleApproval(user)" width="150px"><i class="icon-white" ng-class="user.icon"></i>  {{user.approvalStyle}}</td>
 					</tr>
 				</tbody>
 			</table>
-			<button ng-click="updateUsers()" class="btn btn-primary">Update Users</button>
 		</div>
 	</div>
 </div>

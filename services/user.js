@@ -4,7 +4,7 @@ module.exports = function(dbTier) {
 			var user = req.body;
 			var newUser = false;
 			if(user._id == undefined){
-				user.admin = false;
+				user.role = 'User';
 				user.approval = false;
 				newUser = true;
 			}
