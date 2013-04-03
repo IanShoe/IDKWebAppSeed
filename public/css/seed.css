@@ -1,3 +1,8 @@
+/*Get rid of the stupid focus border*/
+a {
+	outline: none !important;
+}
+
 .menu-well {
 	min-height: 20px;
 	padding: 19px;
