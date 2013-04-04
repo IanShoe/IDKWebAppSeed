@@ -1,7 +1,8 @@
 div.messageBox {
+	display: -webkit-flex;
+	display: flex;
 	border :2px solid #a1a1a1;
 	border-radius: 7px;
-	color: #008dd6;
 	background: #161616;
 	-webkit-animation: messageAnimation 3s ease;
 	-moz-animation: messageAnimation 3s ease;
@@ -14,7 +15,13 @@ img.messageImg {
 }
 
 h6.messageItem {
+
+	color: #008dd6;
 	display: inline;
+	font-weight: 500;
+	margin-left: 6px;
+	margin-top: auto;
+	
 }
 
 /*Desktop*/

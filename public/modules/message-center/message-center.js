@@ -41,10 +41,6 @@ directive('message', function (messageService) {
         restrict: 'E',
         templateUrl: 'modules/message-center/partials/message-box.html',
         link: function (scope, element, attrs) {
-            var doneFading = function () {
-                messageService.removeItem(scope.messageItem);
-                scope.$apply();
-            };
             setTimeout(function(){
                 messageService.removeItem(scope.messageItem);
                 scope.$apply();
